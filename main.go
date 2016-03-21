@@ -94,6 +94,7 @@ func (ctx *Context) oldFeeds() {
 }
 
 func (ctx *Context) updateTimestamp(feed string) {
+	// Reinserts the feed into the database and sets its expire value
 	ctx.DB.Set([]byte(feed), []byte(feed))
 	ctx.DB.Expire([]byte(feed), ctx.Config.Throttling.OldFeedThreshold)
 }
@@ -162,19 +163,6 @@ func (ctx *Context) run() {
 			go ctx.parseFeed(feedURL)
 		}
 	}
-}
-
-// Logger ...
-func Logger() {
-	Emitter.On(CheckingOldFeedsEvent, func() {
-		log.Println("checking for out of date feeds...")
-	})
-	Emitter.On(OldFeedEvent, func(feed string) {
-		log.Println("needs checking:", feed)
-	})
-	Emitter.On(NewEntryEvent, func(e Entry) {
-		log.Println(" > new entry on feed", e.Feed, "with id", e.ID)
-	})
 }
 
 func runApp(c *cli.Context) {
