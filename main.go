@@ -40,7 +40,7 @@ type config struct {
 	}
 }
 
-// Context ...
+// Context provides a way to access the app dependencies
 type Context struct {
 	Config     *config
 	DB         *ledis.DB
@@ -48,7 +48,7 @@ type Context struct {
 	QueryQueue chan string
 }
 
-// Entry ...
+// Entry is what we store for each entry we get
 type Entry struct {
 	ID    string
 	Feed  string
@@ -85,6 +85,7 @@ func (ctx *Context) oldFeeds() {
 			if ctx.Config.ExitOnError {
 				log.Fatal(err)
 			}
+			continue
 		}
 		if value != nil {
 			continue
@@ -107,6 +108,7 @@ func (ctx *Context) parseFeed(feedURL string) {
 		if ctx.Config.ExitOnError {
 			log.Fatal(err)
 		}
+		return
 	}
 	for _, item := range feed.Items {
 		e := Entry{
@@ -122,6 +124,7 @@ func (ctx *Context) parseFeed(feedURL string) {
 			if ctx.Config.ExitOnError {
 				log.Fatal(err)
 			}
+			continue
 		}
 		if dbVal != nil {
 			continue
@@ -139,6 +142,7 @@ func (ctx *Context) persistEntry(e Entry) {
 		if ctx.Config.ExitOnError {
 			log.Fatal(err)
 		}
+		return
 	}
 	ctx.DB.Set([]byte(e.ID), val)
 	ctx.emitter.Emit(NewEntryEvent, e)
@@ -217,6 +221,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "rss-puppy"
 	app.Usage = "A watchdog tool for monitoring RSS feeds"
+	app.Version = "0.0.0"
 	app.Action = runApp
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
