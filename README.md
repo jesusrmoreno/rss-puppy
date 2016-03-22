@@ -1,6 +1,6 @@
 # RSS Puppy
 # This is a clone of the buzzfeed rss-puppy tool written in Go and requireing less heavy dependencies.
-
+[Buzzfeed rss-puppy](https://github.com/buzzfeed-openlab/rss-puppy)
 ##### A watchdog tool for monitoring RSS feeds
 
 This tool is designed to monitor RSS feeds in bulk, and to generate machine friendly notifications when new entries appear. While there exists no shortage of RSS readers and web-based notification services, nothing we found combines easy managment of hundreds of RSS feeds with the flexibility to direct output to a variety of data stores or over disparate protocols.
