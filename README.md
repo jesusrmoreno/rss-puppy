@@ -67,5 +67,6 @@ The logger.go file shows a very very simple example of an output.
 ### Run the monitor!
 
 ```bash
+./rss-puppy --help
 ./rss-puppy --dbpath examplepath
 ```
