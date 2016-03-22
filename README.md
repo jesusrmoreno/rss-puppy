@@ -1,5 +1,5 @@
 # RSS Puppy
-# This is a clone of the buzzfeed rss-puppy tool written in Go and requireing less heavy dependencies.
+# This is a clone of the buzzfeed rss-puppy tool written in Go and requiring less heavy dependencies.
 [Buzzfeed rss-puppy](https://github.com/buzzfeed-openlab/rss-puppy)
 ##### A watchdog tool for monitoring RSS feeds
 
